@@ -63,11 +63,11 @@ $desarrollador[] = new desarrollador("Abram Arita","aritabram@gmial.com", "arita
 $desarrollador[] = new desarrollador("Angel Martinez", "angelmartinez@gmial.com", "angelmartinez.com");
 $desarrollador[] = new desarrollador("Roberto Luque", "robertoluque@gmail.com", "robertoluque.com");
 
-$iconos[] = "http://localhost/playstore/img/icono1.png";
-$iconos[] = "http://localhost/playstore/img/icono2.png";
-$iconos[] = "http://localhost/playstore/img/icono3.png";
-$iconos[] = "http://localhost/playstore/img/icono4.png";
-$iconos[] = "http://localhost/playstore/img/icono5.png";
+$iconos[] = "http://localhost/Tareas/Tareas/img/facebook.png";
+$iconos[] = "http://localhost/Tareas/Tareas/img/snapchat.png";
+$iconos[] = "http://localhost/Tareas/Tareas/img/instagram.png";
+$iconos[] = "http://localhost/Tareas/Tareas/img/whatsapp.png";
+$iconos[] = "http://localhost/Tareas/Tareas/img/messenger.png";
 
 $comentariosfacebook[] = new comentarios("Muy Impresionante", "For basic styling—light padding and only horizontal dividers—add the base class .table to any It may seem super redundant, but given the widespread use of tables for other plugins", $usuarios[2], "15/4/2016");
 
@@ -94,7 +94,7 @@ $comentariosWats[] = new comentarios("Muy bueno", "For basic styling—light pad
 $comentariosWats[] = new comentarios("Muy Pesimo", "For basic styling—light padding and only horizontal dividers—add the base class .table to any It may seem super redundant, but given the widespread use of tables for other plugins", $usuarios[2], "15/7/2016");
 $comentariosWats[] = new comentarios("Me gusto", "horizontal dividers—add the base class .table to any It may seem super redundant, but given the widespread use of tables for other plugins", $usuarios[4], "6/3/2016");
 
-$aplicacion[] = new aplicacion("whatsApp", "Simple. Personal. Mensajeria en tiempo real.","15/3/15",4,$comentariosWats,"http://localhost/playstore
+$aplicaciones[] = new aplicacion("whatsApp", "Simple. Personal. Mensajeria en tiempo real.","15/3/15",4,$comentariosWats,"http://localhost/playstore
 	/apks/whatsapp.apk",25,$estatus[1],$iconos[3],$categorias[3],$desarrollador[4],"2.0.3.5","4/3/17");
 
 
@@ -102,18 +102,41 @@ $comentariosMess[] = new comentarios("Muy bueno", "For basic styling—light pad
 $comentariosMess[] = new comentarios("Muy Pesimo", "For basic styling—light padding and only horizontal dividers—add the base class .table to any It may seem super redundant, but given the widespread use of tables for other plugins", $usuarios[3], "15/7/2016");
 $comentariosMess[] = new comentarios("Me gusto", "horizontal dividers—add the base class .table to any It may seem super redundant, but given the widespread use of tables for other plugins", $usuarios[5], "6/3/2016");
 
-$aplicacion[] = new aplicacion("Messenger", "Messenger, un modo mas rapido de enviar mensajes.","21/6/2015",4,$comentariosMess,"http://localhost/playstore/apks/messenger.apk", 32, $estatus[2], $iconos[4], $categorias[25], $desarrollador[1], "3.5.0.7","13/1/17");
+$aplicaciones[] = new aplicacion("Messenger", "Messenger, un modo mas rapido de enviar mensajes.","21/6/2015",4,$comentariosMess,"http://localhost/playstore/apks/messenger.apk", 32, $estatus[2], $iconos[4], $categorias[25], $desarrollador[1], "3.5.0.7","13/1/17");
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>PlayStore</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/personalizados.css">
 </head>
 <body>
+	<div class="col-xs col-sm-6 col-md-4 col-gl-4">
+			<?php
+			
+			for ($i=0; $i < count($aplicaciones) ; $i++) { 
+				echo "<div class='well'>";
+				$aplicacion = $aplicaciones[$i];
+				echo "<img src='" . $aplicacion->getIcono() . "' class= 'img-responsive' style='width:20px height= 20px'> ";
+				echo "<b>" . $aplicacion->getNombreProducto() . "</b><br>";
+				echo "<span class = 'label label-primary'>" . $aplicacion->getCalificacionPromedio() . "</span>";
+				for ($n=0; $n < $aplicacion->getCalificacionPromedio(); $n++) { 
+					echo "<span class = 'glyphicon glyphicon-star' aria-hidden = 'true'></span>";
+				}
+				echo "<br>". $aplicacion->getDescripcion() . "<br>" ;
+				echo "Version: <b>" . $aplicacion->getVersion() . "</b><br>";
+				echo "<a href = '". $aplicacion->getUrlProducto() ."'>Descargar</a>" ;
+				echo "</div>";
+			}
+
+			?>
+		
+		
+	</div>
 	<div style="margin: 20px ">
-	<div class="alert alert-success" rel="stylesheet" >
-		<?php
+		<div class="alert alert-success" rel="stylesheet" >
+			<?php
 			if(isset($_GET["btn-guardar"])){
 				if (!$_GET["txt-nombre"]) 
 					echo "Ingrese el nombre de la aplicacion. <br>";
@@ -134,8 +157,8 @@ $aplicacion[] = new aplicacion("Messenger", "Messenger, un modo mas rapido de en
 				if(!$_GET["cmb-desarollador"])
 					echo "Seleccione un desarrollador. <br>";
 			}
-		?>
-	</div>
+			?>
+		</div>
 		<form action="index.php" method="GET">
 			<table class="table table-striped table-hover" style="width: 50%">
 				<tr>
@@ -263,18 +286,18 @@ $aplicacion[] = new aplicacion("Messenger", "Messenger, un modo mas rapido de en
 											echo "selected='selected'";
 										echo ">" . $desarrollador[$i]->getNombre() . "</option>";
 									}
-								?>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<input type="submit" name="btn-guardar" value="Guardar" class="btn btn-primary">
-							<input type="reset" name="btn-limpiar" value="Limpiar" class="btn btn-warning">
-						</td>
-					</tr>
-				</table>
-			</form>
-		</div>
-	</body>
-	</html>
+									?>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="submit" name="btn-guardar" value="Guardar" class="btn btn-primary">
+								<input type="reset" name="btn-limpiar" value="Limpiar" class="btn btn-warning">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</body>
+		</html>
